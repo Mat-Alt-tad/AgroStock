@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="/var/home/msolano/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
+        </processorPath>
+        <module name="Agrostock.InventoryService.main" />
+        <module name="Agrostock.AuthService.main" />
+        <module name="Agrostock.NotificationService.main" />
+        <module name="Agrostock.ProductService.test" />
+        <module name="Agrostock.PurchaseOrderService.test" />
+        <module name="Agrostock.AuthService.test" />
+        <module name="Agrostock.InventoryService.test" />
+        <module name="Agrostock.NotificationService.test" />
+        <module name="Agrostock.ProductService.main" />
+        <module name="Agrostock.PurchaseOrderService.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="21" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AgroStock.AuthService" options="-parameters" />
+      <module name="AgroStock.AuthService.main" options="-parameters" />
+      <module name="AgroStock.AuthService.test" options="-parameters" />
+      <module name="AgroStock.InventoryService" options="-parameters" />
+      <module name="AgroStock.InventoryService.main" options="-parameters" />
+      <module name="AgroStock.InventoryService.test" options="-parameters" />
+      <module name="AgroStock.MovementService" options="-parameters" />
+      <module name="AgroStock.MovementService.main" options="-parameters" />
+      <module name="AgroStock.MovementService.test" options="-parameters" />
+      <module name="AgroStock.NotificationService" options="-parameters" />
+      <module name="AgroStock.NotificationService.main" options="-parameters" />
+      <module name="AgroStock.NotificationService.test" options="-parameters" />
+      <module name="AgroStock.ProductService" options="-parameters" />
+      <module name="AgroStock.ProductService.main" options="-parameters" />
+      <module name="AgroStock.ProductService.test" options="-parameters" />
+      <module name="AgroStock.PurchaseOrderService" options="-parameters" />
+      <module name="AgroStock.PurchaseOrderService.main" options="-parameters" />
+      <module name="AgroStock.PurchaseOrderService.test" options="-parameters" />
+      <module name="AgroStock.ReportService" options="-parameters" />
+      <module name="AgroStock.ReportService.main" options="-parameters" />
+      <module name="AgroStock.ReportService.test" options="-parameters" />
+      <module name="AgroStock.SupplierService" options="-parameters" />
+      <module name="AgroStock.SupplierService.main" options="-parameters" />
+      <module name="AgroStock.SupplierService.test" options="-parameters" />
+      <module name="AgroStock.WarehouseService" options="-parameters" />
+      <module name="AgroStock.WarehouseService.main" options="-parameters" />
+      <module name="AgroStock.WarehouseService.test" options="-parameters" />
+      <module name="Agrostock.AuthService" options="-parameters" />
+      <module name="Agrostock.AuthService.main" options="-parameters" />
+      <module name="Agrostock.AuthService.test" options="-parameters" />
+      <module name="Agrostock.InventoryService" options="-parameters" />
+      <module name="Agrostock.InventoryService.main" options="-parameters" />
+      <module name="Agrostock.InventoryService.test" options="-parameters" />
+      <module name="Agrostock.NotificationService" options="-parameters" />
+      <module name="Agrostock.NotificationService.main" options="-parameters" />
+      <module name="Agrostock.NotificationService.test" options="-parameters" />
+      <module name="Agrostock.ProductService" options="-parameters" />
+      <module name="Agrostock.ProductService.main" options="-parameters" />
+      <module name="Agrostock.ProductService.test" options="-parameters" />
+      <module name="Agrostock.PurchaseOrderService" options="-parameters" />
+      <module name="Agrostock.PurchaseOrderService.main" options="-parameters" />
+      <module name="Agrostock.PurchaseOrderService.test" options="-parameters" />
+    </option>
+  </component>
+</project>

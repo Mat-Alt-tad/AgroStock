@@ -1,0 +1,6 @@
+rootProject.name = 'Agrostock'
+include 'AuthService'
+include 'InventoryService'
+include 'NotificationService'
+include 'ProductService'
+include 'PurchaseOrderService'

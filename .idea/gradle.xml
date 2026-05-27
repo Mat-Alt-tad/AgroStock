@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock" />
+            <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock/AuthService" />
+            <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock/InventoryService" />
+            <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock/NotificationService" />
+            <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock/ProductService" />
+            <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock/PurchaseOrderService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+    <option name="offlineMode" value="true" />
+  </component>
+</project>
