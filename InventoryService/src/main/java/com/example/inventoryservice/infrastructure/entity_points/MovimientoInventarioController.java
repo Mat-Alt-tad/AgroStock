@@ -1,8 +1,11 @@
 package com.example.inventoryservice.infrastructure.entity_points;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import com.example.inventoryservice.domain.model.MovimientoInventario;
+import com.example.inventoryservice.domain.model.StockItem;
 import com.example.inventoryservice.domain.useCase.MovimientoInventarioUseCase;
+import com.example.inventoryservice.domain.useCase.StockItemUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 public class MovimientoInventarioController {
 
     private final MovimientoInventarioUseCase movimientoInventarioUseCase;
+    private final StockItemUseCase stockItemUseCase;
 
     @GetMapping
     public ResponseEntity<List<MovimientoResponse>> findAll() {
@@ -42,6 +46,25 @@ public class MovimientoInventarioController {
     @PostMapping
     public ResponseEntity<MovimientoResponse> create(@RequestBody MovimientoRequest request) {
         MovimientoInventario saved = movimientoInventarioUseCase.save(toDomain(request));
+        return ResponseEntity.ok(toResponse(saved));
+    }
+
+    @PostMapping("/salida")
+    public ResponseEntity<MovimientoResponse> registrarSalida(
+            @RequestBody SalidaRequest request,
+            @RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        StockItem stockItem = stockItemUseCase.findByProductoId(request.getProductoId())
+                .orElseThrow(() -> new RuntimeException("StockItem no encontrado para producto: " + request.getProductoId()));
+
+        MovimientoInventario movimiento = MovimientoInventario.builder()
+                .stockItemId(stockItem.getId())
+                .tipo("SALIDA")
+                .cantidad(request.getCantidad())
+                .fecha(LocalDateTime.now())
+                .build();
+
+        MovimientoInventario saved = movimientoInventarioUseCase.save(movimiento);
         return ResponseEntity.ok(toResponse(saved));
     }
 

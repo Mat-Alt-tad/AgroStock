@@ -24,7 +24,9 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public MovimientoInventarioUseCase movimientoInventarioUseCase(MovimientoInventarioGateWay movimientoInventarioGateWay) {
-        return new MovimientoInventarioUseCase(movimientoInventarioGateWay);
+    public MovimientoInventarioUseCase movimientoInventarioUseCase(
+            MovimientoInventarioGateWay movimientoInventarioGateWay,
+            StockItemGateWay stockItemGateWay) {
+        return new MovimientoInventarioUseCase(movimientoInventarioGateWay, stockItemGateWay);
     }
 }
