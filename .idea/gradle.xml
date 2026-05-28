@@ -16,8 +16,8 @@
             <option value="/var/home/msolano/Documentos/programacion/sprint_bot/AgroStock/PurchaseOrderService" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="true" />
       </GradleProjectSettings>
     </option>
-    <option name="offlineMode" value="true" />
   </component>
 </project>
