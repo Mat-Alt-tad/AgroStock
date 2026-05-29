@@ -1,12 +1,13 @@
 package com.example.inventoryservice.infrastructure.entity_points;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import com.example.inventoryservice.domain.model.MovimientoInventario;
 import com.example.inventoryservice.domain.model.StockItem;
 import com.example.inventoryservice.domain.useCase.MovimientoInventarioUseCase;
 import com.example.inventoryservice.domain.useCase.StockItemUseCase;
+import com.example.inventoryservice.infrastructure.notifier.NotificationClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,7 @@ public class MovimientoInventarioController {
 
     private final MovimientoInventarioUseCase movimientoInventarioUseCase;
     private final StockItemUseCase stockItemUseCase;
+    private final NotificationClient notificationClient;
 
     @GetMapping
     public ResponseEntity<List<MovimientoResponse>> findAll() {
@@ -46,6 +48,7 @@ public class MovimientoInventarioController {
     @PostMapping
     public ResponseEntity<MovimientoResponse> create(@RequestBody MovimientoRequest request) {
         MovimientoInventario saved = movimientoInventarioUseCase.save(toDomain(request));
+        verificarStockBajo(saved.getStockItemId());
         return ResponseEntity.ok(toResponse(saved));
     }
 
@@ -65,6 +68,7 @@ public class MovimientoInventarioController {
                 .build();
 
         MovimientoInventario saved = movimientoInventarioUseCase.save(movimiento);
+        verificarStockBajo(saved.getStockItemId());
         return ResponseEntity.ok(toResponse(saved));
     }
 
@@ -72,6 +76,32 @@ public class MovimientoInventarioController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         movimientoInventarioUseCase.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private void verificarStockBajo(String stockItemId) {
+        try {
+            StockItem stockItem = stockItemUseCase.findById(stockItemId).orElse(null);
+            if (stockItem == null) return;
+
+            if (stockItem.getCantidad() < stockItem.getNivelMinimo()) {
+                String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+                String mensaje = "El producto " + stockItem.getProductoId()
+                        + " está por debajo del nivel mínimo. "
+                        + "Stock actual: " + stockItem.getCantidad()
+                        + ", Mínimo: " + stockItem.getNivelMinimo();
+
+                notificationClient.enviarNotificacion(
+                        "ALERTA",
+                        "Stock Bajo",
+                        userEmail,
+                        mensaje,
+                        stockItem.getProductoId()
+                );
+            }
+        } catch (Exception e) {
+            System.err.println("Error al verificar stock bajo: " + e.getMessage());
+        }
     }
 
     private MovimientoInventario toDomain(MovimientoRequest req) {

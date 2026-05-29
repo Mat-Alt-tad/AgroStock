@@ -1,0 +1,152 @@
+substitutions:
+  _REGION: us-central1
+  _DB_INSTANCE: ${PROJECT_ID}:us-central1:agrostock-db
+  _DB_USER: agrostock
+
+steps:
+  # ─── AuthService ────────────────────────────────────────
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/auth-service:latest
+      - -f
+      - AuthService/Dockerfile
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/auth-service:latest
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - auth-service
+      - --image=us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/auth-service:latest
+      - --platform=managed
+      - --region=${_REGION}
+      - --allow-unauthenticated
+      - --add-cloudsql-instances=${_DB_INSTANCE}
+      - --set-env-vars=DB_NAME=auth_db,NOTIFICATION_URL=https://notification-service-xxxxx-uc.a.run.app
+      - --set-secrets=DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,JWT_SECRET=jwt-secret:latest
+      - --memory=512Mi
+      - --cpu=1
+
+  # ─── ProductService ─────────────────────────────────────
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/product-service:latest
+      - -f
+      - ProductService/Dockerfile
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/product-service:latest
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - product-service
+      - --image=us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/product-service:latest
+      - --platform=managed
+      - --region=${_REGION}
+      - --allow-unauthenticated
+      - --add-cloudsql-instances=${_DB_INSTANCE}
+      - --set-env-vars=DB_NAME=product_db
+      - --set-secrets=DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,JWT_SECRET=jwt-secret:latest
+      - --memory=512Mi
+      - --cpu=1
+
+  # ─── InventoryService ───────────────────────────────────
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/inventory-service:latest
+      - -f
+      - InventoryService/Dockerfile
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/inventory-service:latest
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - inventory-service
+      - --image=us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/inventory-service:latest
+      - --platform=managed
+      - --region=${_REGION}
+      - --allow-unauthenticated
+      - --add-cloudsql-instances=${_DB_INSTANCE}
+      - --set-env-vars=DB_NAME=inventory_db,PRODUCT_URL=https://product-service-xxxxx-uc.a.run.app,NOTIFICATION_URL=https://notification-service-xxxxx-uc.a.run.app
+      - --set-secrets=DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,JWT_SECRET=jwt-secret:latest
+      - --memory=512Mi
+      - --cpu=1
+
+  # ─── PurchaseOrderService ──────────────────────────────
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/purchase-service:latest
+      - -f
+      - PurchaseOrderService/Dockerfile
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/purchase-service:latest
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - purchase-service
+      - --image=us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/purchase-service:latest
+      - --platform=managed
+      - --region=${_REGION}
+      - --allow-unauthenticated
+      - --add-cloudsql-instances=${_DB_INSTANCE}
+      - --set-env-vars=DB_NAME=purchase_order_db,INVENTORY_URL=https://inventory-service-xxxxx-uc.a.run.app
+      - --set-secrets=DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,JWT_SECRET=jwt-secret:latest
+      - --memory=512Mi
+      - --cpu=1
+
+  # ─── NotificationService ───────────────────────────────
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/notification-service:latest
+      - -f
+      - NotificationService/Dockerfile
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/notification-service:latest
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - notification-service
+      - --image=us-central1-docker.pkg.dev/${PROJECT_ID}/agrostock/notification-service:latest
+      - --platform=managed
+      - --region=${_REGION}
+      - --allow-unauthenticated
+      - --add-cloudsql-instances=${_DB_INSTANCE}
+      - --set-env-vars=DB_NAME=notification_db
+      - --set-secrets=DB_USER=db-user:latest,DB_PASSWORD=db-password:latest,JWT_SECRET=jwt-secret:latest,TWILIO_ACCOUNT_SID=twilio-account-sid:latest,TWILIO_AUTH_TOKEN=twilio-auth-token:latest,TWILIO_PHONE_NUMBER=twilio-phone-number:latest,MAIL_USERNAME=mail-username:latest,MAIL_PASSWORD=mail-password:latest
+      - --memory=512Mi
+      - --cpu=1
+
+timeout: 1800s

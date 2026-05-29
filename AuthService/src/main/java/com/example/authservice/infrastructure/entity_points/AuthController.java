@@ -3,6 +3,7 @@ package com.example.authservice.infrastructure.entity_points;
 import lombok.RequiredArgsConstructor;
 import com.example.authservice.domain.model.Usuario;
 import com.example.authservice.domain.useCase.UsuarioUseCase;
+import com.example.authservice.infrastructure.notifier.NotificationClient;
 import com.example.authservice.infrastructure.security.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ public class AuthController {
 
     private final UsuarioUseCase usuarioUseCase;
     private final JwtService jwtService;
+    private final NotificationClient notificationClient;
 
     @PostMapping("/register")
     public ResponseEntity<UsuarioResponse> register(@RequestBody UsuarioRequest request) {
         Usuario saved = usuarioUseCase.save(toDomain(request));
+        notificationClient.enviarBienvenida(saved.getNombre(), saved.getEmail(), saved.getCedula());
         return ResponseEntity.ok(toResponse(saved));
     }
 
