@@ -3,11 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/396930954/Agrostock.AuthService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/396930954/Agrostock.AuthService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/396930954/Agrostock.AuthService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/396930954/Agrostock.AuthService.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/504144956/Agrostock.InventoryService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/504144956/Agrostock.InventoryService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/504144956/Agrostock.InventoryService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/504144956/Agrostock.InventoryService.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1513190887/Agrostock.NotificationService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1513190887/Agrostock.NotificationService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1513190887/Agrostock.NotificationService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1513190887/Agrostock.NotificationService.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/85465609/Agrostock.ProductService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/85465609/Agrostock.ProductService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/85465609/Agrostock.ProductService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/85465609/Agrostock.ProductService.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/466741291/Agrostock.PurchaseOrderService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/466741291/Agrostock.PurchaseOrderService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/466741291/Agrostock.PurchaseOrderService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/466741291/Agrostock.PurchaseOrderService.test.iml" />
     </modules>
